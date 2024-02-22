@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+
+{% block title %}مراجعین{% endblock title %}
+
+{% block content %}
+    <a href="{% url 'list' %}">بازگشت به لیست</a>
+     | 
+    <a href="{% url 'edit' person.id %}">ویرایش</a>
+    <table class="table">
+        <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">نام و نام خانوادگی</th>
+              <th scope="col">تلفن تماس</th>
+              <th scope="col">دلایل مراجعه</th>
+              <th scope="col">اقدامات</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+                <th scope="row"></th>
+                <td>{{ person.first_name }} {{ person.last_name }}</td>
+                <td>{{ person.phone_number }}</td>
+                <td>
+                    {% for reason in person.reasons_to_visit.all %}
+                        <a href="{% url 'reason' reason.id %}">{{ reason.name }}</a>
+                        |
+                    {% endfor %}
+                </td>
+                <td><a href="#" class="link-danger link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover">حذف</a></td>
+            </tr>
+          </tbody>
+    </table>
+    <div class="col-md-6">
+      <div class="card card-body">
+        {{ person.address }}
+      </div>
+    </div>
+    
+        
+    
+{% endblock content %}

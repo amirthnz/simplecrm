@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+
+{% block title %}مراجعین{% endblock title %}
+
+{% block content %}
+    <a href="{% url 'list' %}">بازگشت به لیست</a>
+     | 
+    <a href="{% url 'editreason' reason.id %}">ویرایش</a>
+    <table class="table">
+        <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">نام و نام خانوادگی</th>
+              <th scope="col">تلفن تماس</th>
+              <th scope="col">دلایل مراجعه</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for person in reason.people.all %}
+                <tr>
+                    <th scope="row"></th>
+                    <td><a href="{{ person.get_absolute_url }}">{{ person.first_name }} {{ person.last_name }}</a></td>
+                    <td>{{ person.phone_number }}</td>
+                    <td>
+                        {% for reason in person.reasons_to_visit.all %}
+                            <a href="{% url 'reason' reason.id %}">{{ reason.name }}</a>
+                            |
+                        {% endfor %}
+                    </td>
+                </tr>
+            {% endfor %}
+          </tbody>
+    </table>
+    
+        
+    
+{% endblock content %}

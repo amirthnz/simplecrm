@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block title %}Log-in{% endblock %}
+
+{% block content %}
+    <p>از فرم زیر برای ورود استفاده کنید</p>
+    <form action="{% url 'login' %}" method="post">
+        {{ form.as_p }}
+        {% csrf_token %}
+        <input type="hidden" name="next" value="{{ next }}" />
+        <p><input type="submit" value="ورود"></p>
+    </form>
+    <a href='{% url "password_reset" %}'>رمز را فراموش کرده اید؟</a>
+
+{% endblock content %}
